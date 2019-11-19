@@ -6,11 +6,22 @@ import Input from '../components/Input';
 import { CreditLimitsService, CreditConstraints } from '../services/CreditLimits';
 
 const LoanQuote =  styled.div`
+  .credit-params-section {
+    margin-bottom: 40px;
+  }
+
   .loan-calculators {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 40px;
+
+    @media (max-width: 1000px) {
+      grid-template-columns: 1fr;
+      grid-row-gap: 30px;
+    }
   }
 `;
+/** ^ for a properly responsive solution, make media queries global */
 
 const Title = styled.h1`
   text-align: left;
@@ -18,8 +29,8 @@ const Title = styled.h1`
 
 
 export default () => {
-  const [amount, setAmount] = useState<number>(0);
-  const [months, setMonths] = useState<number>(0);
+  const [amount, setAmount] = useState<number>(10000);
+  const [months, setMonths] = useState<number>(4);
   const [creditConstraints, setCreditConstrants] = useState<CreditConstraints>();
 
   useEffect(() => {
@@ -33,11 +44,17 @@ export default () => {
     <LoanQuote>
       <ContentContainer>
         <Title>Your loan</Title>
-        <Input label="Amount requested" units="£" value={amount} valueChanged={setAmount} />
-        <Input label="Duration" units="months" value={months} valueChanged={setMonths} />
-        <div className="loan-calculators">
-          <Calculator amount={amount} months={months} creditConstraints={creditConstraints}/>
-          <Calculator amount={amount} months={months} creditConstraints={creditConstraints} isBusinessCredit={true} />
+        <div className="credit-params-section">
+          <div className="center-within-parent">
+            <Input label="Amount requested" units="£" value={amount} valueChanged={setAmount} />
+            <Input label="Duration" units="months" value={months} valueChanged={setMonths} />
+          </div>
+        </div>
+        <div className="center-within-parent">
+          <div className="loan-calculators">
+            <Calculator amount={amount} months={months} creditConstraints={creditConstraints}/>
+            <Calculator amount={amount} months={months} creditConstraints={creditConstraints} isBusinessCredit={true} />
+          </div>
         </div>
       </ContentContainer>
     </LoanQuote>
