@@ -1,1 +1,4 @@
-# iwoca-test
+# sofar-test
+
+`yarn install`
+`yarn start`
