@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled  from 'styled-components';
 import { ContentContainer } from '../components/ContentContainer';
 import Calculator from '../components/Calculator';
 import Input from '../components/Input';
+import { CreditLimitsService, CreditConstraints } from '../services/CreditLimits';
 
 const LoanQuote =  styled.div`
   .loan-calculators {
@@ -15,9 +16,18 @@ const Title = styled.h1`
   text-align: left;
 `;
 
+
 export default () => {
   const [amount, setAmount] = useState<number>(0);
   const [months, setMonths] = useState<number>(0);
+  const [creditConstraints, setCreditConstrants] = useState<CreditConstraints>();
+
+  useEffect(() => {
+    (async () => {
+      const creditConstraints = await CreditLimitsService.get();
+      setCreditConstrants(creditConstraints);
+    })();
+  }, []);
 
   return (
     <LoanQuote>
@@ -26,8 +36,8 @@ export default () => {
         <Input label="Amount requested" units="£" value={amount} valueChanged={setAmount} />
         <Input label="Duration" units="months" value={months} valueChanged={setMonths} />
         <div className="loan-calculators">
-          <Calculator amount={amount} months={months} />
-          <Calculator amount={amount} months={months} isBusinessCredit={true} />
+          <Calculator amount={amount} months={months} creditConstraints={creditConstraints}/>
+          <Calculator amount={amount} months={months} creditConstraints={creditConstraints} isBusinessCredit={true} />
         </div>
       </ContentContainer>
     </LoanQuote>

@@ -1,3 +1,5 @@
+import { CreditConstraints } from "../services/CreditLimits";
+
 export type Credit = {
   amount: number,
   months: number,
@@ -21,3 +23,18 @@ export const getInterestValuesForCredit = (credit: Credit): number[] => {
 }
 
 export const getPrincipalForCredit = (amount: number, months: number) => Math.ceil(amount / (months || 1));
+
+export const isCreditAllowed = (credit: Credit, constraints?: CreditConstraints) => {
+  if (!constraints) {
+    return true;
+  }
+
+  const creditType: keyof CreditConstraints = credit.isBusinessLoan? 'businessLoan' : 'revolvingCreditFacility';
+
+  return (
+    constraints[creditType].amountMax >= credit.amount &&
+    constraints[creditType].amountMin <= credit.amount &&
+    constraints[creditType].durationMax >= credit.months &&
+    constraints[creditType].durationMin <= credit.months
+  )
+}

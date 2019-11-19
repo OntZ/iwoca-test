@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import LoanQuote from './pages/LoanQuote';
 
 export default () => {
