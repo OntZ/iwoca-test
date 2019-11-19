@@ -1,22 +1,11 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import styled  from 'styled-components';
+import LoanQuote from './pages/LoanQuote';
 
-const Title = styled.h1`
-  font-size: 1.5em;
-  text-align: center;
-  color: palevioletred;
-`;
-
-const App: React.FC = () => {
+export default () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <Title>Styled components works</Title>
-      </header>
+      <LoanQuote />
     </div>
   );
 }
-
-export default App;
