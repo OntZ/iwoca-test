@@ -1,11 +1,12 @@
 # iwoca tech test
+## [See it working here](https://ontz.github.io)
 
-To run:
+To run locally:
 
 `yarn install`
 `yarn start`
 
-To test:
+To test locally:
 
 `yarn test`
 
