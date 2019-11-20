@@ -26,7 +26,7 @@ export type CreditConstraints = {
 
 export class CreditLimitsService {
   public static get = async ():Promise<CreditConstraints> => {
-    const response: CreditLimitResponse = await http<CreditLimitResponse>('http://www.mocky.io/v2/5d4aa9e93300006f000f5ea9');
+    const response: CreditLimitResponse = await http<CreditLimitResponse>('https://www.mocky.io/v2/5d4aa9e93300006f000f5ea9');
 
     return {
       revolvingCreditFacility: {
